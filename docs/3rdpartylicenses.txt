@@ -304,6 +304,9 @@ MIT
 angular-autofocus-fix
 MIT
 
+@angular/animations
+MIT
+
 zone.js
 MIT
 The MIT License
