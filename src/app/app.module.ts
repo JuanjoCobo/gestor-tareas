@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule} from '@angular/forms';
 import { AutofocusModule } from 'angular-autofocus-fix';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { TasksComponent } from './components/tasks/tasks.component';
@@ -15,7 +16,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AutofocusModule
+    AutofocusModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

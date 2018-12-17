@@ -2,10 +2,10 @@
 
 <input type="text" class="task-input" placeholder="Próxima tarea ...." [(ngModel)]="taskTitle" (keyup.enter)="addTask()">
 
-<div class="task-item" *ngFor="let task of tasks">
+<div class="task-item" *ngFor="let task of tasksFiltered()">
 	<div class="task-item-left">
 		<input type="checkbox" [(ngModel)]="task.completed">
-		<div *ngIf="!task.editing; else editingTask" class="task-item-label"  (dblclick)="editTask(task)"> {{task.title}} </div>
+		<div *ngIf="!task.editing; else editingTask" class="task-item-label" [ngClass]="{ 'completed' : task.completed}"  (dblclick)="editTask(task)"> {{task.title}} </div>
 		<ng-template #editingTask>
 			<input type="text" class="task-item-edit" [(ngModel)]="task.title" (blur)="doneEdit(task)" (keyup.enter)="doneEdit(task)" (keyup.esc)="cancelEdit(task)" autofocus>
 		</ng-template>
@@ -16,20 +16,20 @@
 </div>
 
 <div class="extra-container">
-	<div><label><input type="checkbox">Seleccionar todo</label></div>
-	<div>4 items left</div>
+	<div><label><input type="checkbox" (change)="checkAllTasks()">Seleccionar todo</label></div>
+	<div>{{ remaining() }} tareas pendientes</div>
 </div>
 
 <div class="extra-container">
 
 	<div>
-		<button class="active">Todo</button>
-		<button>Activo</button>
-		<button>Completado</button>
+		<button [ngClass]="{ 'active': filter == 'all' }" (click)="filter='all'">Todo</button>
+		<button [ngClass]="{ 'active': filter == 'active' }" (click)="filter='active'">Pendiente</button>
+		<button [ngClass]="{ 'active': filter == 'completed' }" (click)="filter='completed'">Completado</button>
 	</div>
 
-	<div>
-		<button>Limpiar completado</button>
+	<div *ngIf="atLeastOneCompleted()">
+		<button (click)="clearCompleted()">Limpiar tareas completadas</button>
 	</div>
 
 </div>
